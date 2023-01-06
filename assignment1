@@ -1,0 +1,120 @@
+#include<iostream>
+using namespace std;
+class Array
+{
+
+private:
+    int capacity;
+    int lastIndex;
+    int *ptr;
+public:
+    Array(int);
+    bool isEmpty();
+    void append(int);
+    void inset(int,int);
+    void edit(int,int);
+    void del(int);
+    bool isFull();
+    int get(int);
+    int cont();
+    ~Array();
+    int Find(int);
+};
+
+Array::Array(int cap)
+{
+    capacity = cap;
+    lastIndex = -1;
+    ptr = new int[capacity];
+
+}
+
+bool Array::isEmpty()
+{
+
+    return lastIndex == -1;
+}
+
+void Array::append(int data)
+{
+
+    if(lastIndex==capacity-1)
+        cout<<"Array is already full";
+    else
+    {
+
+        lastIndex++;
+        ptr[lastIndex]=data;
+    }
+}
+
+void Array::inset(int index, int data)
+{
+
+    int i;
+    if(lastIndex+1==capacity)
+        cout<<"Array is already full";
+    else if(index>lastIndex+1 || index<0)
+    {
+        cout<<"Invalid index";
+    }
+    else
+        for(i=lastIndex;i>=index;i--)
+        {
+
+         ptr[i+1]=ptr[i];
+
+         }
+    ptr[index]=data;
+    lastIndex++;
+}
+void Array::edit(int index, int data)
+{
+
+    if(index>=0 &&index<=lastIndex)
+        ptr[index]=data;
+}
+void Array::del(int index)
+{
+    int i;
+
+    if(lastIndex==-1)
+        cout<<endl<<"Array is Empty";
+    else if(index<0||index>lastIndex)
+        cout<<endl<<"Invalid index";
+    else
+        for(i=index;i<lastIndex;i++)
+        ptr[i]=ptr[i+1];
+        lastIndex--;
+}
+bool Array::isFull()
+{
+    return lastIndex+1==capacity;
+
+}
+int Array::get(int index)
+{
+    if(index>=0&& index<=lastIndex)
+        return ptr[index];
+    cout<<"invalid index or empty array";
+    return -1;
+}
+int Array::cont()
+{
+   return lastIndex+1;
+
+}
+Array::~Array()
+{
+    delete[] ptr;
+}
+int Array::Find(int data)
+{
+    int i;
+    for(i=0;i<=lastIndex;i++)
+    {
+        if(ptr[i] == data)
+        return i;
+    }
+    return -1;
+}
